@@ -134,10 +134,10 @@
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-12 mt-5">
             <div class="card p-3" >
-                <form action="{% url 'userlogin' %}" method="post">
+                <form action="" method="post">
                     {% csrf_token %}
                     <div class="row">
-                      
+                        
                           
                           
                         
@@ -149,13 +149,13 @@
 
                         <div class="col-md-12 mt-3">
                             <label><h5>Email Id</h5></label>
-                            <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                            <input type="email" name="email" required class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
                         </div>
                         <div class="col-md-12 mt-3">
                             <label><h5>Password</h5></label>
-                            <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                            <input type="password" name="password" required class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                         </div>
-
+                        
                         <div class="col-md-12 mb-3 mt-3">
 
                             <button type="submit" class="btn btn-block btn-primary btn-lg auth-form-btn font-weight-medium w-100">LOGIN</button>
@@ -176,4 +176,20 @@
     </div>
     </div>
 
+    {% if msg %}
+    <script>
+            alert("{{ msg }}")
+            javascript: history.go(-1)
+    
+    </script>
+    {% endif %}
+
+
+    {% if msg_error %}
+    <script>
+      alert('Error! Please enter valid Email and Password');
+      javascript: history.go(-1);
+    </script>
+{%endif%}
+    
 </body>

@@ -178,7 +178,7 @@ a {
 </head>
 <body style="background-image:url({% static 'images/a1.jpg' %})">
 
-              <form method="POST" action="{% url 'userlogin' %}">
+              <form method="POST" action="">
                   {% csrf_token %}
                   <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
     <div class="card card0 border-0">
@@ -193,12 +193,12 @@ a {
                 <div class="card2 card border-0 px-4 py-5">
                     <div class="row mb-4 px-3">
                         <h5 class="mb-0 mr-4 mt-2"><large class="font-weight-bold">Sign In</large></h5>
-                        
+                             
                     </div>
                     <div class="row px-3 mb-4">
                         <div class="line"></div> </small>
                         <div class="line"></div>
-                    </div>
+                    </div>         
                     <div class="row px-3"> <label class="mb-1">
                         <h6 class="mb-0 text-lg"><large>Email Id</large></h6>
                         </label> <input class="mb-4" type="email" name="email" required placeholder="Enter username">
@@ -206,7 +206,7 @@ a {
                     <div class="row px-3"> <label class="mb-1">
                         <h6 class="mb-0 text-lg"><large>Password</large></h6>
                         </label> <input type="password" name="password" required placeholder="Enter password"> 
-                    </div>
+                    </div>            
                     <div class="row px-3 mb-4">
                         <div class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk"  required class="custom-control-input mb-0 text-lg"> <label for="chk1" class="custom-control-label mb-0 text-lg "style="padding-right:20px;">Remember me</label> </div> 
                     </div>

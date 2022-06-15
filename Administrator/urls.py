@@ -224,7 +224,7 @@ urlpatterns = [
 
     re_path(r'^gosignup$', views.gosignup, name='gosignup'),
 
-    re_path(r'^userlogin$', views.userlogin, name='userlogin'),
+    # re_path(r'^userlogin$', views.userlogin, name='userlogin'),
     re_path(r'^userdash$', views.userdash, name='userdash'),
 
     re_path(r'^userprofile$', views.userprofile, name='userprofile'),

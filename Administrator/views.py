@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from Administrator.otpgen import gen_otp
-
+from projecthouse.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from Administrator.otpgen import send_sms,gen_otp
 import random
@@ -887,7 +887,7 @@ def platforms(request):
 
 def view_tutorials(request):
     
-       var = addnewplatform.objects.all()
+       var = Addnewplatform.objects.all()
 
        return render(request, 'user/view_tutorial.html',{'var':var})
 
@@ -1212,12 +1212,24 @@ def usercreate(request):
                     user = usersign.objects.create(fullname=fullname,platformid=platformid, email=email,
                                                     level=0,cno=cno,password=password,score=0, course_id=coid)
                     user.save()
-                    return redirect('userlog')
+                    msg_success = "Account Created Successfully, Please Login"
+                    return render(request,'user/userlog.html', {'msg_success': msg_success})
             else:
                 messages.info(request, 'Password and conform password does not match')
                 return redirect('userreg')
             
 def userlog(request):
+    if request.method == 'POST':
+    
+        if usersign.objects.filter(email=request.POST['email'], password=request.POST['password']).exists():
+                
+            l = usersign.objects.get(email=request.POST['email'], password=request.POST['password'])
+            request.session['login']=l.sid
+            return render(request, 'user/userdash.html')
+        else:
+            context = {'msg_error': 'Invalid data'}
+            return render(request, 'user/userlog.html', context)
+
     return render(request,'user/userlog.html')
 
 def userreg(request):
@@ -1233,16 +1245,18 @@ def gologins(request):
 def gosignup(request):  
      return render(request, 'user/user_registration.html')
 
-def userlogin(request):   
-        if request.method == 'POST':
-            if usersign.objects.filter(email=request.POST['email'], password=request.POST['password']).exists():
-                l = usersign.objects.get(email=request.POST['email'], password=request.POST['password'])
-                request.session['login']=l.sid
-                return redirect('userdash')
+# def userlogin(request):   
+#         if request.method == 'POST':
+#             if usersign.objects.filter(email=request.POST['email'], password=request.POST['password']).exists():
+#                 l = usersign.objects.get(email=request.POST['email'], password=request.POST['password'])
+#                 request.session['login']=l.sid
+#                 return redirect('userdash')
                               
-            else:
-                messages.error(request, 'Invalid Email Id or Password.')
-                return render(request, 'user/userlog.html')
+#             else:
+#                 messages.error(request, 'Invalid Email Id or Password.')
+#                 return render(request, 'user/userlog.html')
+
+
 
 def userdash(request):
     l=usersign.objects.get(sid=request.session['login'])
