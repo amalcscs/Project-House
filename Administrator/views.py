@@ -655,7 +655,7 @@ def interview_q_a(request):
 def interview(request):
     if request.method == 'POST':
         plat = request.POST['selectplatform']
-        q1 = request.POST['qu1']
+        q1 = request.POST['q1']
         a1 = request.POST['ans1']
         inte = Q_A.objects.create(q1=q1,a1=a1,platform_name=plat)
         inte.save()

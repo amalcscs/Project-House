@@ -34,17 +34,17 @@
     <div class="col-lg-4 col-xlg-3 col-md-6 col-12" style="padding-bottom: 5%;">
         {% for i in plat %}
         <a href="{% url 'adminprojectsview' i.id %}">
-            <div class="card mb-3 p-3 h-50"
-                style="background: white;border-radius: 1rem; height: 50%;box-shadow: rgb(23 24 25 / 45%) 0px 3px 3px;">
-                <ul class="align-items-center mb-0" style="list-style-type:none; margin-top: 1rem;">
+            <div class="card mb-3 p-5"
+                style="background: white;border-radius: 1rem;box-shadow: rgb(23 24 25 / 45%) 0px 3px 3px;">
+                <!-- <ul class="align-items-center mb-0" style="list-style-type:none; margin-top: 1rem;">
 
-                    <li style="margin-top: 1rem;margin-bottom: 1rem;">
-
+                    <li style="margin-top: 1rem;margin-bottom: 1rem;"> -->
+<span >
                         <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %}" alt="loading" width="16">
                         <span style="color: #00ADB5;text-decoration:none;font-size:1.4rem">{{ i.platformname }}</span>
-                    </li>
+                    </span>  <!-- </li>
 
-                </ul>
+                </ul> -->
             </div>
         </a>
         {% endfor %}

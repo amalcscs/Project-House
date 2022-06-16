@@ -63,7 +63,7 @@
 
               <label for="materialRegisterFormEmail" class="active" style=" position:relative;top: 8px">E-mail:</label>
               <input type="email" name="emailid" id="email" class="form-control" required
-                style="position: relative;top: 10px;">
+                style="position: relative;top: 10px;" pattern="^[\w.+\-]+@gmail\.com$">
             </div>
             <div class="mt-2" id="emessages" style="color:red"></div>
             <br>
@@ -86,7 +86,7 @@
               <label for="materialRegisterFormProjectdescription" class="active"
                 style=" position:relative;top: 8px">Project description:</label>
               <textarea class="form-control" rows="5" name="projectdescription"
-                style="position: relative;top: 10px;"></textarea>
+                style="position: relative;top: 10px;" required></textarea>
 
               <small id="materialProjectname" class="active">
 
@@ -98,7 +98,7 @@
               <label for="materialRegisterFormProjectdescription" class="active"
                 style=" position:relative;top: 8px">Upload project(If any):</label>
               <input type="file" name="project_files" value="no_file" class="form-control"
-                style=" position: relative;top: 10px;">
+                style=" position: relative;top: 10px;" required>
               <small id="materialProjectname" class="active">
 
               </small>

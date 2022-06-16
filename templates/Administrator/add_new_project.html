@@ -14,7 +14,7 @@
     <div class="card-body ">
 
         <hr/>
-        <form action={% url 'addnewprojectdb' %} method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+        <form action="{% url 'addnewprojectdb' %}" method="post" id="sslTypeToggle" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row justify-content-center mt-5">
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-end">
@@ -22,7 +22,7 @@
                     <span class="font-medium">Project Name:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text" class="inp form-control" name="projectname" placeholder="Enter Project Name">
+                    <input type="text" class="inp form-control" name="projectname" placeholder="Enter Project Name" required>
                 </div>
 
 
@@ -31,14 +31,14 @@
                     <span class="font-medium">Price:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text " class="inp form-control " name="price " placeholder="Enter Project cost ">
+                    <input type="text " class="inp form-control " name="price " placeholder="Enter Project cost " required>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <label class="font-medium lab">Enter short description:</label>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <textarea class="form-control inp " rows="5 " name="shortdescription " id="shortdescription "></textarea>
+                    <textarea class="form-control inp " rows="5 " name="shortdescription " id="shortdescription " required></textarea>
                 </div>
                 <br><br><br>
 
@@ -47,12 +47,19 @@
                     <span class="font-medium ">Select platform:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <select class="form-select inp form-control" name="selectplatform " aria-label="Default select example ">
+                    <select class="form-select inp form-control" name="selectplatform "  required >
+                        <option value="">Select platform</option>
+                             {% for i in platformname %}
+                                 <option value="{{ i.platformname }} ">{{ i.platformname }}</option>
+                                  {% endfor %}
+                    </select></td>
+
+                    <!-- <select class="form-select inp form-control" name="selectplatform "  required >
                        <option selected>Select platform</option>
                             {% for i in platformname %}
                                 <option value="{{ i.platformname }} ">{{ i.platformname }}</option>
                                  {% endfor %}
-                   </select></td>
+                   </select></td> -->
                 </div>
 
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
@@ -60,14 +67,14 @@
                     <span class="font-medium ">upload thumbnail:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="file" class="inp form-control" name="uploadthumbnail " placeholder="Enter short description: ">
+                    <input type="file" class="inp form-control" name="uploadthumbnail " placeholder="Enter short description: " required>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <span class="font-medium ">Language used:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text " class="inp form-control" name="languageused " placeholder="Enter Language used ">
+                    <input type="text " class="inp form-control" name="languageused " placeholder="Enter Language used " required>
                 </div>
 
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
@@ -75,7 +82,7 @@
                     <span class="font-medium ">Database:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text " class="inp form-control" name="database " placeholder="Enter Database ">
+                    <input type="text " class="inp form-control" name="database " placeholder="Enter Database " required>
                 </div>
 
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
@@ -83,14 +90,14 @@
                     <span class="font-medium ">Softwares:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text " class="inp form-control" name="softwares " placeholder="Enter softwares">
+                    <input type="text " class="inp form-control" name="softwares " placeholder="Enter softwares" required>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <span class="font-medium ">User Interfaces:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text " class="inp form-control" name="userinterface " placeholder="Enter user interface">
+                    <input type="text " class="inp form-control" name="userinterface " placeholder="Enter user interface" required>
                 </div>
                 <br>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
@@ -98,7 +105,8 @@
                     <span class="font-medium ">Project abstract:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <textarea class="form-control inp " rows="5 " name="projectabstract " id="shortdescription "> </textarea>
+                    <textarea rows="5 " class="form-control inp " name="projectabstract " required></textarea>
+                    <!-- <textarea class="form-control inp " id="input" required rows="5 " name="projectabstract "   > </textarea> -->
                 </div>
                 <br><br><br>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
@@ -106,15 +114,17 @@
                     <span class="font-medium ">Module details:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <textarea class="form-control inp " rows="5 " name="moduledetails " id="shortdescription "> </textarea>
+                    <textarea rows="5 " class="form-control inp " name="moduledetails " required></textarea>
+                    <!-- <textarea class="form-control inp " id="input" required rows="5 " name="moduledetails "   > </textarea> -->
                 </div>
+                
                 <br><br><br>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <span class="font-medium ">Upload Video:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="file" class="inp form-control" name="uploadvideo " accept="video/* ">
+                    <input type="file" class="inp form-control" name="uploadvideo " accept="video/* " required>
                 </div>
 
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
@@ -122,10 +132,10 @@
                     <label class="font-medium lab">Upload Screenshots:</label>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots ">
-                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots1 ">
-                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots2 ">
-                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots3 ">
+                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots " required>
+                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots1 " required>
+                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots2 " required>
+                    <input type="file" class="inp form-control mb-2 " name="uploadscreenshots3 " required>
                 </div>
                 <br><br><br><br>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
@@ -133,7 +143,7 @@
                     <span class="font-medium ">Upload Pdf:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="file" class="inp form-control" name="uploadpdf ">
+                    <input type="file" class="inp form-control" name="uploadpdf " required>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <center><button type="submit" class="btn btn-outline-primary btn-fw">Add project</button></center>
@@ -142,5 +152,27 @@
         </form>
     </div>
 </div>
+
+<script>
+    var input = document.getElementsByTagName('textarea');
+
+function validation() {
+  var inputValue = $('input:visible').val();
+  var inputType = $(input).attr('type');
+  if (inputValue !== '') {
+    updateStatus(+1);
+  } else {
+    $('input:visible').next().html("please enter the value");
+  }
+}
+
+function nextBtn() {
+  validation();
+}
+
+function prevBtn() {
+  updateStatus(-1);
+}
+</script>
 
 {%endblock%}
