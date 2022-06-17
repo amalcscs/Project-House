@@ -150,7 +150,7 @@ urlpatterns = [
 
     re_path(r'^interview$', views.interview, name='interview'),
 
-    re_path(r'^deleteq/<int:id>$', views.deleteq, name='deleteq'),
+    re_path(r'^deleteq/(?P<id>\d+)/$', views.deleteq, name='deleteq'),
 
     re_path(r'^interview_Q_A$', views.interview_Q_A, name='interview_Q_A'),
 

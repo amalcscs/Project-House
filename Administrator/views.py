@@ -481,7 +481,10 @@ def user_show_ieeeproject(request):
     return render(request, 'user/user_show_ieeeproject.html', {'spo': spro})
 
 def req_ieee(request):
-    return render(request, 'Administrator/req_ieeeproject.html')
+    if 'admin' in request.session:
+        return render(request, 'Administrator/req_ieeeproject.html')
+    else:
+        return redirect('admin_login')
 
 def main_ieee(request):
     if 'admin' in request.session:
@@ -698,12 +701,6 @@ def activate(request):
         return render(request,'Administrator/activate.html')
 
 
-
-
-
-  
-
-
 def quiz(request):
     if 'admin' in request.session:
         plat = Addnewplatform.objects.all()
@@ -806,9 +803,12 @@ def viewtutorial(request):
     return render(request, 'Administrator/tutorilsusermain.html', {'platformname': platformname})
 
 def addvediotutorial(request):
-    platformname = Addnewplatform.objects.all()
-    tuto = tutorial.objects.all()
-    return render(request, 'Administrator/adminaddvediotutorials.html', {'plat': platformname,'tutorial':tuto})
+    if 'admin' in request.session:
+        platformname = Addnewplatform.objects.all()
+        tuto = tutorial.objects.all()
+        return render(request, 'Administrator/adminaddvediotutorials.html', {'plat': platformname,'tutorial':tuto})
+    else:
+        return redirect('admin_login')
 
 def uploadtutorial(request):
     if request.method == 'POST':
