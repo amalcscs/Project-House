@@ -15,8 +15,8 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" style="font-size: 20px">Select platform:</label>
                                 <div class="col-md-8">
-                                    <select class="form-select" name="selectplatform">
-                                        <option selected>Select platform</option>
+                                    <select class="form-select" name="selectplatform" required>
+                                        <option value="">Select platform</option>
                                         {% for i in platformname %}
                                         <option value="{{ i.platformname }}">{{ i.platformname }}</option>
                                         {% endfor %}
@@ -28,7 +28,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" style="font-size: 20px">Upload Paper:</label>
                                 <div class="col-md-8">
-                                    <input autocomplete="off" type="file" name="uploadpdf" class="form-control"
+                                    <input autocomplete="off" type="file" required name="uploadpdf" class="form-control"
                                         placeholder="Upload Paper" />
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                 <label class="col-md-3 col-form-label" style="font-size: 20px">title:</label>
 
                                 <div class="col-md-8">
-                                    <input autocomplete="off" type="text" name="title" class="form-control"
+                                    <input autocomplete="off" type="text" required name="title" class="form-control"
                                         placeholder="Enter Title" />
                                 </div>
                             </div>

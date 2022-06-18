@@ -150,10 +150,13 @@ def viewieeedetail(request, id):
     return render(request, 'Administrator/viewieeedetail.html', context)
 
 def viewprojectdetails(request):
-    plat = Addnewplatform.objects.all()
-    project = Addnewproject.objects.all()
-    context = {'plat': plat, 'project': project}
-    return render(request, 'Administrator/view_projects_detail.html', context)
+    if 'admin' in request.session:
+        plat = Addnewplatform.objects.all()
+        project = Addnewproject.objects.all()
+        context = {'plat': plat, 'project': project}
+        return render(request, 'Administrator/view_projects_detail.html', context)
+    else:
+        return redirect('admin_login')
 
 def viewieeedetails(request):
     plat = Addnewplatform.objects.all()
@@ -189,12 +192,14 @@ def userdashboard(request):
 
 #add project
 def addproject(request):
-    projectname = Addnewproject.objects.all()
-    platformname = Addnewplatform.objects.all()
-    projectname_count = projectname.count()
-    context = {'projectname': projectname, 'projectname_count': projectname_count, 'platformname': platformname}
-    return render(request, 'Administrator/add_new_project.html', context)
-
+    if 'admin' in request.session:
+        projectname = Addnewproject.objects.all()
+        platformname = Addnewplatform.objects.all()
+        projectname_count = projectname.count()
+        context = {'projectname': projectname, 'projectname_count': projectname_count, 'platformname': platformname}
+        return render(request, 'Administrator/add_new_project.html', context)
+    else:
+        return redirect('admin_login')
 
 #display projects based on platform
 def userpythonprojects(request, id):
@@ -473,12 +478,18 @@ def getproject(request, id):
 
 
 def show_inbuiltproject_requests(request):
-    spro = User_req_inbuilt_project.objects.all()
-    return render(request, 'Administrator/getreq_inbuiltprojects.html', {'spo': spro})
+    if 'admin' in request.session:
+        spro = User_req_inbuilt_project.objects.all()
+        return render(request, 'Administrator/getreq_inbuiltprojects.html', {'spo': spro})
+    else:
+        return redirect('admin_login')
 
 def user_show_ieeeproject(request):
-    spro = User_req_ieeeproject.objects.all()
-    return render(request, 'user/user_show_ieeeproject.html', {'spo': spro})
+    if 'admin' in request.session:
+        spro = User_req_ieeeproject.objects.all()
+        return render(request, 'user/user_show_ieeeproject.html', {'spo': spro})
+    else:
+        return redirect('admin_login')
 
 def req_ieee(request):
     if 'admin' in request.session:
@@ -1259,24 +1270,32 @@ def gosignup(request):
 
 
 def userdash(request):
-    l=usersign.objects.get(sid=request.session['login'])
-    pl=Platform.objects.get(platformid=l.platformid)
-    c=Course.objects.get(courseid=l.course_id)   
-    return render(request, 'user/userdash.html',{'pl':pl,'c':c,'l':l})
+    if 'login' in request.session:
+        l=usersign.objects.get(sid=request.session['login'])
+        pl=Platform.objects.get(platformid=l.platformid)
+        c=Course.objects.get(courseid=l.course_id)   
+        return render(request, 'user/userdash.html',{'pl':pl,'c':c,'l':l})
+    else:
+        return redirect("/")
 
 
 def userprofile(request):
-    l= usersign.objects.get(sid=request.session['login'])
-    p= Platform.objects.get(platformid=l.platformid)
-    c= Course.objects.get(courseid=l.course_id) 
-    return render(request, 'user/profile.html', {'l': l,'p':p,'c':c})
+    if 'login' in request.session:
+        l= usersign.objects.get(sid=request.session['login'])
+        p= Platform.objects.get(platformid=l.platformid)
+        c= Course.objects.get(courseid=l.course_id) 
+        return render(request, 'user/profile.html', {'l': l,'p':p,'c':c})
+    else:
+        return redirect("/")
 
 def tutorials(request):
-    ll= usersign.objects.get(sid=request.session['login'])
-    p= Platform.objects.get(platformid=ll.platformid)
-    c= Course.objects.get(courseid=ll.course_id) 
-    l= Lecture.objects.filter(courseid=ll.level)
-  
+    if 'login' in request.session:
+        ll= usersign.objects.get(sid=request.session['login'])
+        p= Platform.objects.get(platformid=ll.platformid)
+        c= Course.objects.get(courseid=ll.course_id) 
+        l= Lecture.objects.filter(courseid=ll.level)
+    else:
+        return redirect("/")
    
    
     return render(request, 'user/tutorial.html', {'l': l,'ll':ll,'p':p,'c':c})
@@ -1336,14 +1355,18 @@ def updateuserprofile(request, id):
         return redirect('userlog')
         
 def certificate(request):
-    l= usersign.objects.get(sid=request.session['login'])
-    p= Platform.objects.get(platformid=l.platformid)
-    c= Course.objects.get(courseid=l.course_id)
-    s=float(l.score)
-    if(s>4):
-        return render(request,'user/certificate.html',{'l': l,'p':p,'c':c})
-    else:        
-        return render(request,'user/nocertificate.html',{'l': l,'p':p,'c':c})
+    if 'login' in request.session:
+        l= usersign.objects.get(sid=request.session['login'])
+        p= Platform.objects.get(platformid=l.platformid)
+        c= Course.objects.get(courseid=l.course_id)
+        s=float(l.score)
+        if(s>4):
+            return render(request,'user/certificate.html',{'l': l,'p':p,'c':c})
+        else:        
+            return render(request,'user/nocertificate.html',{'l': l,'p':p,'c':c})
+    else:
+        return redirect("/")
+    
 def gocertificate(request):
     l= usersign.objects.get(sid=request.session['login'])
     p= Platform.objects.get(platformid=l.platformid)
