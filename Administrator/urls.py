@@ -21,11 +21,11 @@ urlpatterns = [
     re_path(r'^mainplatform$', views.mainplatform, name='mainplatform'),
 
     #edit platform
-    re_path(r'^mainplatform/editplatform/<int:id>$', views.editplatform, name='editplatform'),
+    re_path(r'^edit_platform/(?P<id>\d+)$', views.edit_platform, name='edit_platform'),
 
 
     #update platform 
-    re_path(r'^mainplatform/editplatform/updateplatform/<int:id>$', views.updateplatform, name='updateplatform'),
+    re_path(r'^update_platform/(?P<id>\d+)$', views.update_platform, name='update_platform'),
 
     #delete platform
     re_path(r'^mainplatform/deleteplatform/<int:id>$', views.deleteplatform,name='deleteplatform'),
@@ -112,10 +112,14 @@ urlpatterns = [
     re_path(r'^result$', views.result, name='result'),
 
     re_path(r'^getproject/(?P<id>\d+)$', views.getproject, name='getproject'),
+    re_path(r'^platform_delete/(?P<id>\d+)$', views.platform_delete, name='platform_delete'),
+    re_path(r'^Admin_view_project_split/(?P<id>\d+)$', views.Admin_view_project_split, name='Admin_view_project_split'),
+    re_path(r'^Admin_delete_projects/(?P<id>\d+)$', views.Admin_delete_projects, name='Admin_delete_projects'),
     re_path(r'^show_inbuiltproject_requests$', views.show_inbuiltproject_requests, name='show_inbuiltproject_requests'),
     re_path(r'^user_show_ieeeproject$', views.user_show_ieeeproject, name='user_show_ieeeproject'),
     #search projects
     re_path(r'^search$',views.search,name='search'),
+    re_path(r'^Admin_view_project$',views.Admin_view_project,name='Admin_view_project'),
 
     re_path(r'^main_ieee$', views.main_ieee, name='main_ieee'),
 
@@ -129,12 +133,17 @@ urlpatterns = [
     
     re_path(r'^view_tutorials$', views.view_tutorials, name='view_tutorials'),
     re_path(r'^user_views$', views.user_views, name='user_views'),
+    re_path(r'^Admin_view_IEEEpapers$', views.Admin_view_IEEEpapers, name='Admin_view_IEEEpapers'),
 
     re_path(r'^view_ieee_papers/(?P<id>\d+)$', views.view_ieee_papers, name='view_ieee_papers'),
+    re_path(r'^deleteieeepapers/(?P<id>\d+)$', views.deleteieeepapers, name='deleteieeepapers'),
 
     re_path(r'^ieee_search$',views.ieee_search,name='ieee_search'),
+    re_path(r'^download_pdf_file$',views.download_pdf_file,name='download_pdf_file'),
 
     re_path(r'^user_req_ieee_projects/(?P<id>\d+)$', views.user_req_ieee_projects, name='user_req_ieee_projects'),
+    re_path(r'^Admin_view_IEEE_split/(?P<id>\d+)$', views.Admin_view_IEEE_split, name='Admin_view_IEEE_split'),
+    
 
     re_path(r'^user_req_ieeeprojectdb$', views.user_req_ieeeprojectdb, name='user_req_ieeeprojectdb'),
 
@@ -191,8 +200,8 @@ urlpatterns = [
     re_path(r'^platforms$', views.platforms, name='platform'),
     re_path(r'^addplatform$', views.addplatform, name='addplatform'),
     re_path(r'^addplatforms$', views.addplatforms, name='addplatforms'),
-    re_path(r'^editplatform/(?P<id>\d+)$', views.editplatform, name='editplatform'),
-    re_path(r'^updateplatform/(?P<id>\d+)$', views.updateplatform, name='updateplatform'),
+    # re_path(r'^editplatform/(?P<id>\d+)$', views.editplatform, name='editplatform'),
+    # re_path(r'^updateplatform/(?P<id>\d+)$', views.updateplatform, name='updateplatform'),
     re_path(r'^deleteplatform/(?P<id>\d+)$', views.deleteplatform, name='deleteplatform'),
     #Courses
     re_path(r'^course$', views.course, name='course'),

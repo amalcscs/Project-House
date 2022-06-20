@@ -14,15 +14,14 @@
     <div class="card-body ">
 
         <hr />
-        <form action="{% url 'savemockq' %}" method="post" class="needs-validation" novalidate
-            enctype="multipart/form-data">
+        <form action="{% url 'savemockq' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row justify-content-center mt-5">
-                <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-end">
+                <!-- <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-end">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %}" alt="loading" width="16">
                     <span class="font-medium">Select platform:</span>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
+                </div> -->
+                <!-- <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <select class="form-select inp form-control" name="selectplatform"
                         aria-label="Default select example ">
                         <option selected>Select platform</option>
@@ -30,7 +29,7 @@
                         <option value="{{ i.platformname }} ">{{ i.platformname }}</option>
                         {% endfor %}
                     </select>
-                </div>
+                </div> -->
 
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
@@ -38,8 +37,8 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <select class="form-select inp form-control" name="selectplatform "
-                        aria-label="Default select example ">
-                        <option selected>Select platform</option>
+                        aria-label="Default select example " required>
+                        <option value="">Select platform</option>
                         {% for i in plat %}
                         <option value="{{ i.platformname }}">{{ i.platformname }}</option>
                         {% endfor %}
@@ -51,35 +50,42 @@
                     <span class="font-medium ">Question 1:</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="file" class="inp form-control" name="qu1 " placeholder="Enter short description: ">
+                    <input type="text" class="inp form-control" required name="qu1 " placeholder="Enter Question ">
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <span class="font-medium ">Answer choice 1</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text" class="inp form-control" name="choice1 " placeholder="Enter short description: ">
+                    <input type="text" class="inp form-control" required name="choice1 " placeholder="Enter Choice 1 ">
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <span class="font-medium ">Answer choice 2</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text" class="inp form-control" name="choice2" placeholder="Enter short description: ">
+                    <input type="text" class="inp form-control" required name="choice2" placeholder="Enter Choice 2 ">
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <span class="font-medium ">Answer choice 3</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text" class="inp form-control" name="choice3" placeholder="Enter short description: ">
+                    <input type="text" class="inp form-control" required name="choice3" placeholder="Enter Choice 3 ">
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
                     <span class="font-medium ">Answer choice 4</span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
-                    <input type="text" class="inp form-control" name="choice4" placeholder="Enter short description: ">
+                    <input type="text" class="inp form-control" required name="choice4" placeholder="Enter Choice 4 ">
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
+                    <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
+                    <span class="font-medium ">Correct Answer</span>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
+                    <input type="text" class="inp form-control" required name="correct_answer" placeholder="Enter Correct Answer">
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 grid-margin">
                     <button type="submit" class="btn btn-primary me-2 w-10">Submit</button>
@@ -108,14 +114,14 @@
                 <ul class="list-inline two-part align-items-center mb-0" style="margin-top: 5%">
 
                     <li style="margin-left: 5%; color: rgb(0, 68, 255);">
-                        <h5>Q){{ i.q1 }}</h5>
+                        <h5>Q){{ i.question }}</h5>
                     </li>
 
 
 
                     <hr style="margin-left: 5%; margin-right: 5%;">
                     <div class="break-all">
-                        <p style="margin-left: 5%;margin-top: 1%;margin-right: 5%;text-align: justify;">Ans){{ i.a1 }}
+                        <p style="margin-left: 5%;margin-top: 1%;margin-right: 5%;text-align: justify;">Ans){{ i.ans }}
                         </p>
                     </div>
 

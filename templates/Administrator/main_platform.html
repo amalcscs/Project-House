@@ -142,18 +142,13 @@
     <div class="col-md-12 col-sm-6 col-6 mb-4">
         <center>
 
-
-            <button type="button" class="btn btn-outline-danger">
-                <a style="text-decoration:none ; color:white" href="delete/{{x.id}}"></a>
-                
-              Delete
-            </a>
-            </button>
+            <a style="text-decoration:none ; color:white" href="{% url 'platform_delete' x.id %}">
+            <button type="button" class="btn btn-outline-danger">Delete</button> </a>
         </center>
     </div>
     <div class="col-md-12 col-sm-6 col-6">
         <center>
-        <a href="/platform_edit/">
+        <a href="{% url 'edit_platform' x.id %}">
             <button type="button" class="btn btn-outline-warning">
                 <i class="mdi mdi-grease-pencil"></i>
               edit

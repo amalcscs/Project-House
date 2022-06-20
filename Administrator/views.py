@@ -1,4 +1,5 @@
 import os
+import mimetypes
 from django.db.models import Q
 from django.shortcuts import render, redirect
 import json
@@ -90,23 +91,31 @@ def mainplatform(request):
     else:
         return redirect('admin_login')
 
-def editplatform(request, id):
+def platform_delete(request,id):
+    mem = Addnewplatform.objects.get(id=id)
+    mem.delete()
+    return redirect("mainplatform")
+
+def edit_platform(request,id):
     plat1 = Addnewplatform.objects.get(id=id)
-    context = {'platform': plat1}
-    return render(request, 'Administrator/edit platform.html', context)
+    context = {'plat1': plat1}
+    return render(request, 'Administrator/edit_platform.html', context)
 
 #update platform 
-def updateplatform(request,id):
-    plat1 = Addnewplatform.objects.get(id=id)
+def update_platform(request,id):
+    
     if request.method=="POST":
+        plat1 = Addnewplatform.objects.get(id=id)
         if len(request.FILES)!=0:
             if len(plat1.uploadthumbnail)>0:
                 os.remove(plat1.uploadthumbnail.path)
-            plat1.uploadthumbnail = request.FILES['thumbimg']
-    plat1.platformname = request.POST['platformname']
-    plat1.description = request.POST['description']
-    plat1.save()
-    return render(request, 'Administrator/dashboard.html', )
+            plat1.uploadthumbnail = request.FILES['upload_img']
+        plat1.platformname = request.POST['platform_name']
+        plat1.description = request.POST['platform_description']
+        plat1.tutorial_discription = request.POST['tutorial_discription']
+        plat1.tutorial_video = request.FILES['tutorial_video']
+        plat1.save()
+        return render(request, 'Administrator/dashboard.html',)
 
 #delete platform 
 def deleteplatform(request, id):
@@ -139,7 +148,7 @@ def viewprojects(request):
 #display projects platform name
 def viewprojectdetail(request, id):
     plat = Addnewplatform.objects.all()
-    project = add_new_ieee.objects.all()
+    project = Addnewproject.objects.filter(id=id)
     context = {'plat': plat, 'project': project}
     return render(request, 'Administrator/view_projects_detail.html', context)
 
@@ -150,13 +159,55 @@ def viewieeedetail(request, id):
     return render(request, 'Administrator/viewieeedetail.html', context)
 
 def viewprojectdetails(request):
-    if 'admin' in request.session:
+    
         plat = Addnewplatform.objects.all()
         project = Addnewproject.objects.all()
         context = {'plat': plat, 'project': project}
         return render(request, 'Administrator/view_projects_detail.html', context)
+  
+
+def Admin_view_project(request):
+    if 'admin' in request.session:
+        plat = Addnewplatform.objects.all()
+        project = Addnewproject.objects.all()
+        context = {'plat': plat, 'project': project}
+        return render(request, 'Admin_view_project.html', context)
     else:
         return redirect('admin_login')
+
+def Admin_view_IEEEpapers(request):
+    if 'admin' in request.session:
+        plat = Addnewplatform.objects.all()
+        project = add_new_ieee.objects.all()
+        context = {'plat': plat, 'project': project}
+        return render(request, 'Admin_view_IEEEpapers.html', context)
+    else:
+        return redirect('admin_login')
+
+def deleteieeepapers(request,id):
+    n = add_new_ieee.objects.get(id=id)
+    n.delete()
+    return redirect("Admin_view_IEEEpapers")
+
+def download_pdf_file(request, filename=''):
+    if filename != '':
+        # Define Django project base directory
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # Define the full file path
+        filepath = BASE_DIR + '/downloadapp/Files/' + filename
+        # Open the file for reading content
+        path = open(filepath, 'rb')
+        # Set the mime type
+        mime_type, _ = mimetypes.guess_type(filepath)
+        # Set the return value of the HttpResponse
+        response = HttpResponse(path, content_type=mime_type)
+        # Set the HTTP header for sending to browser
+        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        # Return the response value
+        return response
+    else:
+        # Load the template
+        return render(request, 'file.html')
 
 def viewieeedetails(request):
     plat = Addnewplatform.objects.all()
@@ -220,6 +271,24 @@ def adminprojectsview(request, id):
         return render(request, 'Administrator/view_projects_detail.html', {'plat':plat,'project':project})
     else:
         return render(request, 'Administrator/dashboard.html')
+
+def Admin_view_project_split(request, id):
+    mem1 = Addnewplatform.objects.get(id=id)
+    m= mem1.platformname
+    mem = Addnewproject.objects.filter(selectplatform=m)
+    return render(request, 'Admin_view_project_split.html', {'mem':mem,'mem1':mem1})
+
+def Admin_view_IEEE_split(request, id):
+    mem1 = Addnewplatform.objects.get(id=id)
+    m= mem1.platformname
+    mem = add_new_ieee.objects.filter(selectplatform=m)
+    return render(request, 'Admin_view_IEEE_split.html', {'mem':mem,'mem1':mem1})
+
+def Admin_delete_projects(request, id):
+    dela = Addnewproject.objects.get(id=id)
+    dela.delete()
+    return redirect('adminDash')
+    
 
 def adminprojectsviews(request, id):
     mem = Addnewplatform.objects.get(id=id).platformname
@@ -654,19 +723,19 @@ def userintership(request):
         '''send_sms(account_sid,auth_token, msg_body,'+14159972855', phonenumber)
         platformname = Addnewplatform.objects.all()'''
         return render(request, 'Administrator/activate.html')
-    else:
+    else: 
         platformname = Addnewplatform.objects.all()
         return render(request, 'Administrator/userapplyintership.html',{'platformname':platformname})
 
 def interview_q_a(request):
     if 'admin' in request.session:
         plat = Addnewplatform.objects.all()
-        s=Q_A.objects.all()
-        return render(request,'Administrator/admin_interview_Q_A.html',{'s':s,'plat':plat})
+        s1=Q_A.objects.all()
+        return render(request,'Administrator/admin_interview_Q_A.html',{'s1':s1,'plat':plat})
     else:
         return redirect('admin_login')
-
-def interview(request):
+                                      
+def interview(request):         
     if request.method == 'POST':
         plat = request.POST['selectplatform']
         q1 = request.POST['q1']
@@ -674,6 +743,7 @@ def interview(request):
         inte = Q_A.objects.create(q1=q1,a1=a1,platform_name=plat)
         inte.save()
         return redirect('interview_q_a')
+
 def deleteq(request,id):
     re = Q_A.objects.get(id=id)
     re.delete()
@@ -720,6 +790,10 @@ def quiz(request):
     else:
         return redirect('admin_login')
 
+def deleteq(request,id):
+    b = QuesModel.objects.get(id=id)
+    b.delete()
+    return redirect("quiz")
 
 def savemockq(request):
     if request.method == 'POST':
@@ -729,7 +803,7 @@ def savemockq(request):
         a2 = request.POST['choice2']
         a3 = request.POST['choice3']
         a4 = request.POST['choice4']
-        aa = request.POST['answer']
+        aa = request.POST['correct_answer']
         inte = QuesModel.objects.create(platform_name=plat,question=q1,op1=a1,op2=a2,op3=a3,op4=a4,ans=aa)
         inte.save()
         return redirect('quiz')

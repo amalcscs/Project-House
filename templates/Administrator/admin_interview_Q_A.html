@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     
-                    <input type="file" class="inp form-control" name="q1" required placeholder="Enter short description: ">
+                    <input type="text" class="inp form-control" name="q1" required placeholder="Enter Question ">
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                     <img src="{% static 'plugins/images/Icon-awesome-circle-notch.png' %} " alt="loading " width="16 ">
@@ -47,7 +47,7 @@
                     <div class="col-12 col-sm-6 col-md-6 grid-margin justify-content-center">
                        
                         <textarea class="form-control inp " rows="5 " name="ans1 "
-                        required    id="shortdescription "></textarea>
+                        required    id="shortdescription " placeholder="Enter Answer "></textarea>
                     </div>
                 <div class="col-12 col-sm-12 col-md-12 grid-margin">
                         <button type="submit" class="btn btn-primary me-2 w-10">Submit</button>
@@ -62,13 +62,14 @@
         <center>
             <h2 style="margin-left: 10px;">{{ x.platformname }} Questions and Answers.</h2>
         </center>
-        <!-- Column -->{% for i in s %}
-        {% if i.platform_name == x.platformname %}
+        <!-- Column -->{% for j in s1 %}
+        {% if j.platform_name == x.platformname %}
+    
         <div class="col-lg-10 col-xlg-3 col-md-12">
 
             <div class="white-box"
                 style="background: #FFFFFF; width: 100%;border-radius: 2rem; margin-left: 5%;box-shadow: rgb(23 24 25 / 45%) 0px 3px 3px">
-                <a href="{% url 'deleteq' i.id %}">
+                <a href="{% url 'deleteq' j.id %}">
                     <img src="{% static 'plugins/images/Icon-material-delete.png' %}" alt="Platforms" width="16px"
                         style="margin-left: 95%;margin-top: 2%">
                 </a>
@@ -76,14 +77,13 @@
                 <ul class="list-inline two-part align-items-center mb-0" style="margin-top: 5%">
 
                     <li style="margin-left: 5%; color: rgb(0, 68, 255);">
-                        <h5>Q){{ i.q1 }}</h5>
+                        <h5>Q){{ j.q1 }}</h5>
                     </li>
-
 
 
                     <hr style="margin-left: 5%; margin-right: 5%;">
                     <div class="break-all">
-                        <p style="margin-left: 5%;margin-top: 1%;margin-right: 5%;text-align: justify;">Ans){{ i.a1 }}
+                        <p style="margin-left: 5%;margin-top: 1%;margin-right: 5%;text-align: justify;">Ans){{ j.a1 }}
                         </p>
                     </div>
 
