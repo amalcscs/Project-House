@@ -237,7 +237,7 @@ def userdashboard(request):
 
     else:
         platform_name = Addnewplatform.objects.all()
-        quest = Q_A.objects.all()
+        quest = QuestionAnswer.objects.all()
         plat = {'platform_name': platform_name,'quest':quest}
         return render(request, 'Administrator/user_dasboard.html', plat)
 
@@ -727,11 +727,21 @@ def userintership(request):
         platformname = Addnewplatform.objects.all()
         return render(request, 'Administrator/userapplyintership.html',{'platformname':platformname})
 
+def Signup_emailval(request):
+    email = request.GET.get('email', None)
+ 
+    data = {
+        'is_taken': applyintershipt.objects.filter(emailid=email).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'Email already exists.'
+    return JsonResponse(data)
+
 def interview_q_a(request):
     if 'admin' in request.session:
         plat = Addnewplatform.objects.all()
-        s1=Q_A.objects.all()
-        return render(request,'Administrator/admin_interview_Q_A.html',{'s1':s1,'plat':plat})
+        s=QuestionAnswer.objects.all()
+        return render(request,'Administrator/admin_interview_Q_A.html',{'s':s,'plat':plat})
     else:
         return redirect('admin_login')
                                       
@@ -740,18 +750,18 @@ def interview(request):
         plat = request.POST['selectplatform']
         q1 = request.POST['q1']
         a1 = request.POST['ans1']
-        inte = Q_A.objects.create(q1=q1,a1=a1,platform_name=plat)
+        inte = QuestionAnswer.objects.create(q1=q1,a1=a1,platform_name=plat)
         inte.save()
         return redirect('interview_q_a')
 
-def deleteq(request,id):
-    re = Q_A.objects.get(id=id)
+def delete_Interview_Q_A(request,id):
+    re = QuestionAnswer.objects.get(id=id)
     re.delete()
     return redirect('interview_q_a')
 
 def interview_Q_A(request):
     plat = Addnewplatform.objects.all()
-    s = Q_A.objects.all()
+    s = QuestionAnswer.objects.all()
     return render(request, 'Administrator/user_interview_questions.html', {'s': s, 'plat': plat})
 
 def activate(request):
@@ -821,6 +831,7 @@ def deletequestion(request,id):
 def usermockexam(request):
     platformname = Addnewplatform.objects.all()
     return render(request, 'Administrator/Takemocktest.html',{'platformname':platformname})
+
 def takemocktest(request):
     if request.method == 'POST':
         plat = request.POST['selectplatform']

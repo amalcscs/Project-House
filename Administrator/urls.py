@@ -160,6 +160,7 @@ urlpatterns = [
     re_path(r'^interview$', views.interview, name='interview'),
 
     re_path(r'^deleteq/(?P<id>\d+)/$', views.deleteq, name='deleteq'),
+    re_path(r'^delete_Interview_Q_A/(?P<id>\d+)/$', views.delete_Interview_Q_A, name='delete_Interview_Q_A'),
 
     re_path(r'^interview_Q_A$', views.interview_Q_A, name='interview_Q_A'),
 
@@ -175,6 +176,8 @@ urlpatterns = [
     re_path(r'^usermockexam$', views.usermockexam, name='usermockexam'),
 
     re_path(r'^takemocktest$', views.takemocktest, name='takemocktest'),
+    
+    re_path(r'^Signup_emailval$', views.Signup_emailval, name='Signup_emailval'),
 
 
     re_path(r'^deletequestion/<int:id>$', views.deletequestion, name='deletequestion'),

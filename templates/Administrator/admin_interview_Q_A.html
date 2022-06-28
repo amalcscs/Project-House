@@ -62,14 +62,14 @@
         <center>
             <h2 style="margin-left: 10px;">{{ x.platformname }} Questions and Answers.</h2>
         </center>
-        <!-- Column -->{% for j in s1 %}
+        <!-- Column -->{% for j in s %}
         {% if j.platform_name == x.platformname %}
     
         <div class="col-lg-10 col-xlg-3 col-md-12">
 
             <div class="white-box"
                 style="background: #FFFFFF; width: 100%;border-radius: 2rem; margin-left: 5%;box-shadow: rgb(23 24 25 / 45%) 0px 3px 3px">
-                <a href="{% url 'deleteq' j.id %}">
+                <a href="{% url 'delete_Interview_Q_A' j.id %}">
                     <img src="{% static 'plugins/images/Icon-material-delete.png' %}" alt="Platforms" width="16px"
                         style="margin-left: 95%;margin-top: 2%">
                 </a>

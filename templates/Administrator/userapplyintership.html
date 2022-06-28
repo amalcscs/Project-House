@@ -15,14 +15,14 @@
 
 <hr style="position: relative;">
 
-{% if messages %}
+<!-- {% if messages %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   {% for message in messages %}
   <center>{{message}}</center>
   {% endfor %}
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-{% endif %}
+{% endif %} -->
 <!--Grid column-->
 <div class="row">
 
@@ -221,6 +221,30 @@
 
 
 </body>
+
+<script>
+  //static/js/script.js
+$(document).ready(function(){
+$("#email").change(function () {
+  var email = $(this).val();
+
+  $.ajax({
+    url: 'Signup_emailval',
+    data: {
+      'email': email
+    },
+    dataType: 'json',
+    success: function (data) {
+      if (data.is_taken) {
+        alert("Email already exists.");
+      }
+    }
+  });
+
+});
+});
+
+</script>
 
 </html>
 {% endblock %}

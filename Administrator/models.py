@@ -168,6 +168,11 @@ class Q_A(models.Model):
     q1 = models.CharField(max_length=300)
     a1 = models.CharField(max_length=300)
 
+class QuestionAnswer(models.Model):
+    platform_name = models.CharField(max_length=200,default='')
+    q1 = models.CharField(max_length=300)
+    a1 = models.CharField(max_length=300)
+
 
 
 class QuesModel(models.Model):
