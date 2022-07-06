@@ -101,14 +101,14 @@
     <h2 style="margin-left: 10px;margin-top: 20px;">{{ x.platformname }} Questions and Answers</h2>
             <br>
     {% for i in s %}
-        <!-- {% if i.platform_name == x.platformname %} -->
+        {% if i.platform_name == x.platformname %}
     <div>
         <ul>
             <li><b>{{ i.q1 }}</b></li>
             <p><b>Ans:</b>{{ i.a1 }}</p>
         </ul>
     </div>
-    <!-- {% endif %} -->
+    {% endif %}
             {% endfor %}
             <hr>
             {% endfor %}
